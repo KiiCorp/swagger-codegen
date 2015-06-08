@@ -5,6 +5,8 @@ public class CodegenParameter {
     isCookieParam, isBodyParam, isFile, notFile, hasMore, isContainer, secondaryParam;
   public String baseName, paramName, dataType, collectionFormat, description, baseType, defaultValue;
   public String jsonSchema;
+  public String jsonSchemaSchema;
+  public String jsonSchemaExample;
 
   /**
    * Determines whether this parameter is mandatory. If the parameter is in "path",
@@ -35,6 +37,8 @@ public class CodegenParameter {
     output.required = this.required;
     output.jsonSchema = this.jsonSchema;
     output.defaultValue = this.defaultValue;
+    output.jsonSchemaSchema = this.jsonSchemaSchema;
+    output.jsonSchemaExample = this.jsonSchemaExample;
 
     return output;
   }

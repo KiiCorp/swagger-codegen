@@ -17,6 +17,8 @@ import java.util.regex.Pattern;
 import javax.annotation.Nullable;
 
 import org.apache.commons.lang.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -956,6 +958,16 @@ public class DefaultCodegen {
       }
     }
     else {
+            if (p.jsonSchema != null || p.jsonSchema.length() > 0) {
+                try {
+                    JSONObject obj = new JSONObject(p.jsonSchema);
+                    JSONObject scm = obj.getJSONObject("schema");
+                    p.jsonSchemaSchema = scm.toString(2);
+                    p.jsonSchemaExample = scm.getJSONObject("example").toString(2);
+                } catch (JSONException e) {
+                    LOGGER.warn("failed to parse schema: " + e.getMessage());
+                }
+            }
       BodyParameter bp = (BodyParameter) param;
       Model model = bp.getSchema();
 
